@@ -1,46 +1,57 @@
 import React from "react";
 import memesData from "../memeData"
+import memeData from "../memeData";
 
 export default function Meme(){
-    const [memeImage, setMemeImage] = React.useState("")
+    const [meme, setMeme] = React.useState({
+        topText: "",
+        bottomText: "",
+        randomImage: "https://i.imgflip.com/30b1gx.jpg"
+    })
 
-    function getMemeImage(){
-        const memesArray = memesData.data.memes;
+    const [allMemeImages, setAllMemeImage] = React.useState(memeData);
+
+    function getMeme(){
+        const memesArray = allMemeImages.data.memes;
         const randNum = Math.floor(Math.random() * memesArray.length);
         const url = memesArray[randNum].url;
-        setMemeImage(url)
+        setMeme(prevMeme => ({
+            ...prevMeme,
+            randomImage: url,
+        }))
     }
 
-    console.log(memesData);
-    console.log(memeImage);
+    console.log(allMemeImages);
+    console.log(meme.randomImage);
 
 
     return (
         <main>
             <div className="form">
-                <input className="form--inputs" type="text" placeholder="top image" />
-                <input className="form--inputs" type="text"  placeholder="bottom image"/>
-                <button onClick={getMemeImage} className="form--btn">Get a new meme image</button>
+                <input className="form--inputs" type="text" placeholder="top text" />
+                <input className="form--inputs" type="text"  placeholder="bottom text"/>
+                <button onClick={getMeme} className="form--btn">Get a new meme image</button>
             </div>
-            <img src={memeImage} className="meme--image" alt="meme"/>
+            <img src={meme.randomImage} className="meme--image" alt="meme"/>
         </main>
     )
 }
 
 // export default function App(){
-//     const [isImportant, setIsImportant] = React.useState("Yes");
 
-//     function handleClick(){
-//         setIsImportant(isImportant === "No" ? "Yes" : "No")
+//     const [thingsArray, setThingsArray] = React.useState(["Thing 1", "Thing 2"]);
+
+//     function addItem(){
+//         setThingsArray(prevArray => [...prevArray, `Thing ${prevArray.length + 1}`])
 //     }
+
+//     const thingsElements = thingsArray.map(thing => <p key={thing}>{thing}</p>)
 
 
 //     return(
 //         <div>
-//             <h1>Is state important to know in react</h1>
-//             <div onClick={handleClick}>
-//                 <h1>{isImportant}</h1>
-//             </div>
+//             <button onClick={addItem}>Add item</button>
+//             {thingsElements}
 //         </div>
 //     )
 // }
