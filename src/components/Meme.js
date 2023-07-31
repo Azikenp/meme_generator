@@ -1,12 +1,11 @@
 import React from "react";
-import memesData from "../memeData"
 import memeData from "../memeData";
 
 export default function Meme(){
     const [meme, setMeme] = React.useState({
         topText: "",
         bottomText: "",
-        randomImage: "https://i.imgflip.com/30b1gx.jpg"
+        randomImage: "//i.imgflip.com/2hgfw.jpg"
     })
 
     const [allMemeImages, setAllMemeImage] = React.useState(memeData);
@@ -20,38 +19,54 @@ export default function Meme(){
             randomImage: url,
         }))
     }
+    console.log(meme);
 
-    console.log(allMemeImages);
-    console.log(meme.randomImage);
+    function setText(event){
+        const {name, value} = event.target
+        setMeme(val => {
+            return{
+                ...val,
+                [name]: value
+            }
+        })
+    }
+
+    // console.log(allMemeImages);
+    // console.log(meme.randomImage);
 
 
     return (
         <main>
             <div className="form">
-                <input className="form--inputs" type="text" placeholder="top text" />
-                <input className="form--inputs" type="text"  placeholder="bottom text"/>
-                <button onClick={getMeme} className="form--btn">Get a new meme image</button>
+                <input 
+                    onChange={setText} 
+                    className="form--inputs" 
+                    type="text" 
+                    placeholder="top text" 
+                    name="topText" 
+                    value={meme.topText}
+                />
+                <input  
+                    onChange={setText} 
+                    className="form--inputs" 
+                    type="text"  
+                    placeholder="bottom text"
+                    name="bottomText"
+                    value={meme.bottomText}
+                />
+                <button 
+                    onClick={getMeme} 
+                    className="form--btn"
+                >
+                        Get a new meme image
+                </button>
             </div>
-            <img src={meme.randomImage} className="meme--image" alt="meme"/>
+            <div className="meme">
+                <img src={meme.randomImage} className="meme--image" alt="meme"/>
+                <h2 className="meme--text top">{meme.topText}</h2>
+                <h2 className="meme--text bottom">{meme.bottomText}</h2>
+            </div>
         </main>
     )
 }
 
-// export default function App(){
-
-//     const [thingsArray, setThingsArray] = React.useState(["Thing 1", "Thing 2"]);
-
-//     function addItem(){
-//         setThingsArray(prevArray => [...prevArray, `Thing ${prevArray.length + 1}`])
-//     }
-
-//     const thingsElements = thingsArray.map(thing => <p key={thing}>{thing}</p>)
-
-
-//     return(
-//         <div>
-//             <button onClick={addItem}>Add item</button>
-//             {thingsElements}
-//         </div>
-//     )
-// }
