@@ -23,7 +23,7 @@ export default function Meme(){
         randomImage: "//i.imgflip.com/2hgfw.jpg"
     })
 
-    const [allMeme, setAllMeme] = React.useState(memeData);
+    const [allMeme, setAllMeme] = React.useState([]);
 
     React.useEffect(() => {
         fetch("https://api.imgflip.com/get_memes")
@@ -44,7 +44,7 @@ export default function Meme(){
             randomImage: url,
         }))
     }
-    console.log(meme);
+    // console.log(meme);
 
     function setText(event){
         const {name, value} = event.target;
